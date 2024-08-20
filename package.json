@@ -1,0 +1,28 @@
+{
+  "name": "full-cycle-ddd",
+  "version": "0.0.1",
+  "description": "package created with the aim of studying and practicing ddd concepts",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "start:dev": "tsx watch src/main.ts",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:cov": "vitest --coverage",
+    "test:ui": "vitest --ui --coverage --watch",
+    "style:check": "npx @biomejs/biome check --write ./src",
+    "types:check": "tsc --noEmit"
+  },
+  "author": "BrunoSSantana",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.4.1",
+    "tsup": "^8.2.4",
+    "tsx": "^4.17.0",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.5"
+  },
+  "dependencies": {
+    "@biomejs/biome": "^1.8.3"
+  }
+}
