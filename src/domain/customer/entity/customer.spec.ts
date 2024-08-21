@@ -1,22 +1,27 @@
+import { addressBuilder, customerBuilder } from "../data-builder/customer";
 import { Address } from "../value-object/address";
 import { Customer } from "./customer";
 
 describe("Customer unit tests", () => {
   it("should throw error when id is empty", () => {
+    const customerData = customerBuilder.withValue("id", "").build();
     expect(() => {
-      const customer = new Customer("", "John");
+      const customer = new Customer(customerData);
     }).toThrowError("Id is required");
   });
 
   it("should throw error when name is empty", () => {
+    const customerData = customerBuilder.withValue("name", "").build();
+
     expect(() => {
-      const customer = new Customer("123", "");
+      const customer = new Customer(customerData);
     }).toThrowError("Name is required");
   });
 
   it("should change name", () => {
+    const customerData = customerBuilder.build();
     // Arrange
-    const customer = new Customer("123", "John");
+    const customer = new Customer(customerData);
 
     // Act
     customer.changeName("Jane");
@@ -26,9 +31,12 @@ describe("Customer unit tests", () => {
   });
 
   it("should activate customer", () => {
-    const customer = new Customer("1", "Customer 1");
-    const address = new Address("Street 1", 123, "13330-250", "São Paulo");
-    customer.Address = address;
+    const customerData = customerBuilder.build();
+    const addressData = addressBuilder.build();
+
+    const customer = new Customer(customerData);
+    const address = new Address(addressData);
+    customer.changeAddress(address);
 
     customer.activate();
 
@@ -36,14 +44,18 @@ describe("Customer unit tests", () => {
   });
 
   it("should throw error when address is undefined when you activate a customer", () => {
+    const customerData = customerBuilder.build();
+
     expect(() => {
-      const customer = new Customer("1", "Customer 1");
+      const customer = new Customer(customerData);
       customer.activate();
     }).toThrowError("Address is mandatory to activate a customer");
   });
 
   it("should deactivate customer", () => {
-    const customer = new Customer("1", "Customer 1");
+    const customerData = customerBuilder.build();
+
+    const customer = new Customer(customerData);
 
     customer.deactivate();
 
@@ -51,7 +63,9 @@ describe("Customer unit tests", () => {
   });
 
   it("should add reward points", () => {
-    const customer = new Customer("1", "Customer 1");
+    const customerData = customerBuilder.build();
+
+    const customer = new Customer(customerData);
     expect(customer.rewardPoints).toBe(0);
 
     customer.addRewardPoints(10);

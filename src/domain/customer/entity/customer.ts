@@ -1,5 +1,10 @@
 import { Address } from "../value-object/address";
 
+export type CustomerCreateInput = {
+  id: string;
+  name: string;
+};
+
 export class Customer {
   private _id: string;
   private _name: string = "";
@@ -7,9 +12,9 @@ export class Customer {
   private _active: boolean = false;
   private _rewardPoints: number = 0;
 
-  constructor(id: string, name: string) {
-    this._id = id;
-    this._name = name;
+  constructor(input: CustomerCreateInput) {
+    this._id = input.id;
+    this._name = input.name;
     this.validate();
   }
 

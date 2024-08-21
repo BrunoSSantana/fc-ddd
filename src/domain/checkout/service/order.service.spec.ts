@@ -1,10 +1,14 @@
-import Customer from "../../customer/entity/customer";
-import Order from "../entity/order";
-import OrderItem from "../entity/order_item";
-import OrderService from "./order.service";
+import { Customer } from "@/domain/customer/entity";
+import { Order, OrderItem } from "../entity";
+import { OrderService } from "./order.service";
+import { customerBuilder } from "@/domain/customer/data-builder/customer";
+
+
 describe("Order service unit tets", () => {
   it("should place an order", () => {
-    const customer = new Customer("c1", "Customer 1");
+    const customerData = customerBuilder.build();
+
+    const customer = new Customer(customerData);
     const item1 = new OrderItem("i1", "Item 1", 10, "p1", 1);
 
     const order = OrderService.placeOrder(customer, [item1]);

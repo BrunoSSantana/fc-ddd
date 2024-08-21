@@ -1,10 +1,18 @@
+export type AddressCreateInput = {
+  street: string;
+  number: string;
+  zip: string;
+  city: string;
+};
+
 export class Address {
   _street: string = "";
-  _number: number = 0;
+  _number: string = "";
   _zip: string = "";
   _city: string = "";
 
-  constructor(street: string, number: number, zip: string, city: string) {
+  constructor(input: AddressCreateInput) {
+    const { street, number, zip, city } = input;
     this._street = street;
     this._number = number;
     this._zip = zip;
@@ -17,7 +25,7 @@ export class Address {
     return this._street;
   }
 
-  get number(): number {
+  get number(): string {
     return this._number;
   }
 
@@ -33,7 +41,7 @@ export class Address {
     if (this._street.length === 0) {
       throw new Error("Street is required");
     }
-    if (this._number === 0) {
+    if (this._number.length === 0) {
       throw new Error("Number is required");
     }
     if (this._zip.length === 0) {

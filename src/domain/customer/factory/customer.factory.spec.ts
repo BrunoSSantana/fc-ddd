@@ -1,5 +1,6 @@
-import { Address } from "../value-object/address";
-import { CustomerFactory } from "./customer.factory";
+import { addressBuilder } from "@/domain/customer/data-builder/customer";
+import { CustomerFactory } from "@/domain/customer/factory/customer.factory";
+import { Address } from "@/domain/customer/value-object/address";
 
 describe("Customer factory unit test", () => {
   it("should create a customer", () => {
@@ -11,7 +12,8 @@ describe("Customer factory unit test", () => {
   });
 
   it("should create a customer with an address", () => {
-    const address = new Address("Street", 1, "13330-250", "São Paulo");
+    const addressData = addressBuilder.build();
+    const address = new Address(addressData);
 
     const customer = CustomerFactory.createWithAddress("John", address);
 
