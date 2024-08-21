@@ -1,6 +1,7 @@
+import { productBuilder } from "@/domain/product/data_builder/product";
+import { Product } from "@/domain/product/entity/product";
 import { PrismaClient } from "@prisma/client";
 import { ProductRepository } from "./product.repository";
-import { Product } from "@/domain/product/entity/product";
 
 describe("Product repository test", () => {
   let prismaClient: PrismaClient;
@@ -11,36 +12,43 @@ describe("Product repository test", () => {
   });
 
   afterEach(async () => {
+    await prismaClient.product.deleteMany();
     await prismaClient.$disconnect();
   });
 
   it("should create a product", async () => {
     const productRepository = new ProductRepository();
-    const product = new Product("1", "Product 1", 100);
+    const productData = productBuilder.build();
+    const product = new Product(productData);
 
     await productRepository.create(product);
 
-    const productModel = await prismaClient.product.findUnique({ where: { id: "1" } });
+    const productFromDB = await prismaClient.product.findUnique({
+      where: { id: product.id },
+    });
 
-    expect(productModel).toStrictEqual({
-      id: "1",
-      name: "Product 1",
-      price: 100,
+    expect(productFromDB).toStrictEqual({
+      id: product.id,
+      name: product.name,
+      price: product.price,
     });
   });
 
   it("should update a product", async () => {
     const productRepository = new ProductRepository();
-    const product = new Product("1", "Product 1", 100);
+    const productData = productBuilder.build();
+    const product = new Product(productData);
 
     await productRepository.create(product);
 
-    const productModel = await prismaClient.product.findUnique({ where: { id: "1" } });
+    const productFromDB = await prismaClient.product.findUnique({
+      where: { id: product.id },
+    });
 
-    expect(productModel).toStrictEqual({
-      id: "1",
-      name: "Product 1",
-      price: 100,
+    expect(productFromDB).toStrictEqual({
+      id: product.id,
+      name: product.name,
+      price: product.price,
     });
 
     product.changeName("Product 2");
@@ -48,10 +56,12 @@ describe("Product repository test", () => {
 
     await productRepository.update(product);
 
-    const productModel2 = await prismaClient.product.findUnique({ where: { id: "1" } });
+    const productFromDB2 = await prismaClient.product.findUnique({
+      where: { id: product.id },
+    });
 
-    expect(productModel2).toStrictEqual({
-      id: "1",
+    expect(productFromDB2).toStrictEqual({
+      id: product.id,
       name: "Product 2",
       price: 200,
     });
@@ -59,15 +69,18 @@ describe("Product repository test", () => {
 
   it("should find a product", async () => {
     const productRepository = new ProductRepository();
-    const product = new Product("1", "Product 1", 100);
+    const productData = productBuilder.build();
+    const product = new Product(productData);
 
     await productRepository.create(product);
 
-    const productModel = await prismaClient.product.findUnique({ where: { id: "1" } });
+    const productFromDB = await prismaClient.product.findUnique({
+      where: { id: product.id },
+    });
 
-    const foundProduct = await productRepository.find("1");
+    const foundProduct = await productRepository.find(product.id);
 
-    expect(productModel).toStrictEqual({
+    expect(productFromDB).toStrictEqual({
       id: foundProduct.id,
       name: foundProduct.name,
       price: foundProduct.price,
@@ -76,10 +89,12 @@ describe("Product repository test", () => {
 
   it("should find all products", async () => {
     const productRepository = new ProductRepository();
-    const product = new Product("1", "Product 1", 100);
+    const productData = productBuilder.build();
+    const product = new Product(productData);
     await productRepository.create(product);
 
-    const product2 = new Product("2", "Product 2", 200);
+    const productData2 = productBuilder.build();
+    const product2 = new Product(productData2);
     await productRepository.create(product2);
 
     const foundProducts = await productRepository.findAll();

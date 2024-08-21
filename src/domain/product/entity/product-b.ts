@@ -1,11 +1,18 @@
 import type { ProductInterface } from "./product.interface";
 
+export type CreateProductBInput = {
+  id: string;
+  name: string;
+  price: number;
+};
+
 export class ProductB implements ProductInterface {
   private _id: string;
   private _name: string;
   private _price: number;
 
-  constructor(id: string, name: string, price: number) {
+  constructor(input: CreateProductBInput) {
+    const { id, name, price } = input;
     this._id = id;
     this._name = name;
     this._price = price;
