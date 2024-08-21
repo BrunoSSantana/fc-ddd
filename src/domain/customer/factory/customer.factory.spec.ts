@@ -1,4 +1,4 @@
-import { addressBuilder } from "@/domain/customer/data-builder/customer";
+import { addressBuilder } from "@/domain/customer/data_builder/customer";
 import { CustomerFactory } from "@/domain/customer/factory/customer.factory";
 import { Address } from "@/domain/customer/value-object/address";
 

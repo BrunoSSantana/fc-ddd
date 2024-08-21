@@ -1,4 +1,4 @@
-import { addressBuilder, customerBuilder } from "../data-builder/customer";
+import { addressBuilder, customerBuilder } from "../data_builder/customer";
 import { Address } from "../value-object/address";
 import { Customer } from "./customer";
 

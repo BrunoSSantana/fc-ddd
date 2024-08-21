@@ -1,7 +1,7 @@
 import {
   addressBuilder,
   customerBuilder,
-} from "@/domain/customer/data-builder/customer";
+} from "@/domain/customer/data_builder/customer";
 import { Customer } from "@/domain/customer/entity";
 import { Address } from "@/domain/customer/value-object/address";
 import { PrismaClient } from "@prisma/client";

@@ -1,8 +1,7 @@
+import { customerBuilder } from "@/domain/customer/data_builder/customer";
 import { Customer } from "@/domain/customer/entity";
 import { Order, OrderItem } from "../entity";
 import { OrderService } from "./order.service";
-import { customerBuilder } from "@/domain/customer/data-builder/customer";
-
 
 describe("Order service unit tets", () => {
   it("should place an order", () => {

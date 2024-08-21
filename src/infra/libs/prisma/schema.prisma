@@ -20,3 +20,9 @@ model Customer {
   active       Boolean
   rewardPoints Int
 }
+
+model Product {
+  id    String @id
+  name  String
+  price Int
+}
