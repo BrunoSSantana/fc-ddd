@@ -1,0 +1,22 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Customer {
+  id           String  @id
+  name         String
+  street       String
+  number       String
+  zipCode      String  @map("zip_code")
+  city         String
+  active       Boolean
+  rewardPoints Int
+}

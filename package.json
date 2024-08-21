@@ -16,13 +16,17 @@
   "author": "BrunoSSantana",
   "license": "MIT",
   "devDependencies": {
+    "@biomejs/biome": "^1.8.3",
+    "@brunoss/mock-builder": "^1.0.11",
+    "@faker-js/faker": "^8.4.1",
     "@types/node": "^22.4.1",
+    "prisma": "^5.18.0",
     "tsup": "^8.2.4",
     "tsx": "^4.17.0",
     "typescript": "^5.5.4",
     "vitest": "^2.0.5"
   },
   "dependencies": {
-    "@biomejs/biome": "^1.8.3"
+    "@prisma/client": "^5.18.0"
   }
 }
