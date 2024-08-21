@@ -11,7 +11,8 @@
     "test:cov": "vitest --coverage",
     "test:ui": "vitest --ui --coverage --watch",
     "style:check": "npx @biomejs/biome check --write ./src",
-    "types:check": "tsc --noEmit"
+    "types:check": "tsc --noEmit",
+    "prisma:migration": "prisma migrate dev --schema=./src/infra/libs/prisma/schema.prisma "
   },
   "author": "BrunoSSantana",
   "license": "MIT",
