@@ -1,4 +1,4 @@
-.env
 node_modules
 fc-ddd-patterns-main
 dev.db*
+.env

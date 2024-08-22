@@ -1,0 +1,18 @@
+services:
+  db-local:
+    image: postgres:16.3-alpine3.19
+    hostname: db-local
+    container_name: ddd-db
+    restart: unless-stopped
+    ports:
+      - "${DATABASE_PORT:?DATABASE_PORT env var is missing on .env file}:${DATABASE_PORT}"
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME:?DATABASE_NAME env var is missing on .env file}
+      POSTGRES_USER: ${DATABASE_USERNAME:?DATABASE_USERNAME env var is missing on .env file}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:?DATABASE_PASSWORD env var is missing on .env file}
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+
+
+
+
