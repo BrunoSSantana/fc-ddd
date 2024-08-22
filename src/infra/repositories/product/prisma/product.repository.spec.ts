@@ -1,17 +1,27 @@
 import { productBuilder } from "@/domain/product/data_builder/product";
 import { Product } from "@/domain/product/entity/product";
+import { prismaService } from "@/infra/libs/prisma/prisma.service";
 import { PrismaClient } from "@prisma/client";
 import { ProductRepository } from "./product.repository";
 
 describe("Product repository test", () => {
   let prismaClient: PrismaClient;
 
+  beforeAll(async () => {
+    prismaClient = prismaService.connect();
+    await prismaClient.$connect();
+  });
+
+  afterAll(async () => {
+    await prismaService.disconnect();
+  });
+
   beforeEach(async () => {
-    prismaClient = new PrismaClient();
     await prismaClient.$connect();
   });
 
   afterEach(async () => {
+    await prismaClient.orderItem.deleteMany();
     await prismaClient.product.deleteMany();
     await prismaClient.$disconnect();
   });

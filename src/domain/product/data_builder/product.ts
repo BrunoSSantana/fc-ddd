@@ -6,7 +6,7 @@ import type { CreateProductInput } from "../entity";
 const productCreateInputShape: Shape<CreateProductInput> = {
   id: randomUUID,
   name: faker.word.words,
-  price: faker.datatype.number({ min: 0, max: 1000, precision: 0.01 }),
+  price: () => Number(faker.commerce.price()),
 };
 
 export const productBuilder = new Builder(productCreateInputShape);

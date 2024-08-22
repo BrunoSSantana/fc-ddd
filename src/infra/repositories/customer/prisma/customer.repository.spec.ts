@@ -4,20 +4,27 @@ import {
 } from "@/domain/customer/data_builder/customer";
 import { Customer } from "@/domain/customer/entity";
 import { Address } from "@/domain/customer/value-object/address";
+import { prismaService } from "@/infra/libs/prisma/prisma.service";
 import { PrismaClient } from "@prisma/client";
 import { CustomerRepository } from "./customer.repository";
 
 describe("Customer repository test", () => {
   let prismaClient: PrismaClient;
 
-  beforeEach(async () => {
-    prismaClient = new PrismaClient();
-    await prismaClient.$connect();
+  beforeAll(async () => {
+    prismaClient = prismaService.connect();
   });
 
+  afterAll(async () => {
+    await prismaService.disconnect();
+  });
+
+  beforeEach(async () => {});
+
   afterEach(async () => {
+    await prismaClient.orderItem.deleteMany();
+    await prismaClient.order.deleteMany();
     await prismaClient.customer.deleteMany();
-    await prismaClient.$disconnect();
   });
 
   it("should create a customer", async () => {
@@ -95,6 +102,8 @@ describe("Customer repository test", () => {
   });
 
   it("should find all customers", async () => {
+    // prismaClient.customer.deleteMany();
+
     const customerRepository = new CustomerRepository();
     const customerData = customerBuilder.build();
     const addressData = addressBuilder.build();

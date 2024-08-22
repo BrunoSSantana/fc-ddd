@@ -1,5 +1,6 @@
 import { customerBuilder } from "@/domain/customer/data_builder/customer";
 import { Customer } from "@/domain/customer/entity";
+import { orderBuilder, orderItemBuilder } from "../data_builder/order";
 import { Order, OrderItem } from "../entity";
 import { OrderService } from "./order.service";
 
@@ -8,22 +9,38 @@ describe("Order service unit tets", () => {
     const customerData = customerBuilder.build();
 
     const customer = new Customer(customerData);
-    const item1 = new OrderItem("i1", "Item 1", 10, "p1", 1);
+    const orderItemData = orderItemBuilder
+      .withValue("price", 10)
+      .withValue("quantity", 1)
+      .build();
+    const item = new OrderItem(orderItemData);
 
-    const order = OrderService.placeOrder(customer, [item1]);
+    const order = OrderService.placeOrder(customer, [item]);
 
     expect(customer.rewardPoints).toBe(5);
     expect(order.total()).toBe(10);
   });
 
   it("should get total of all orders", () => {
-    const item1 = new OrderItem("i1", "Item 1", 100, "p1", 1);
-    const item2 = new OrderItem("i2", "Item 2", 200, "p2", 2);
+    const orderItemData1 = orderItemBuilder
+      .withValue("price", 100)
+      .withValue("quantity", 1)
+      .build();
+    const orderItemData2 = orderItemBuilder
+      .withValue("price", 200)
+      .withValue("quantity", 2)
+      .build();
 
-    const order = new Order("o1", "c1", [item1]);
-    const order2 = new Order("o2", "c1", [item2]);
+    const item1 = new OrderItem(orderItemData1);
+    const item2 = new OrderItem(orderItemData2);
 
-    const total = OrderService.total([order, order2]);
+    const orderData1 = orderBuilder.withValue("items", [item1]).build();
+    const orderData2 = orderBuilder.withValue("items", [item2]).build();
+
+    const order1 = new Order(orderData1);
+    const order2 = new Order(orderData2);
+
+    const total = OrderService.total([order1, order2]);
 
     expect(total).toBe(500);
   });

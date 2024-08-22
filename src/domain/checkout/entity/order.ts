@@ -1,11 +1,19 @@
 import { OrderItem } from "./order_item";
+
+export type OrderCreateInput = {
+  id: string;
+  customerId: string;
+  items: OrderItem[];
+};
+
 export class Order {
   private _id: string;
   private _customerId: string;
   private _items: OrderItem[];
   private _total: number;
 
-  constructor(id: string, customerId: string, items: OrderItem[]) {
+  constructor(input: OrderCreateInput) {
+    const { id, customerId, items } = input;
     this._id = id;
     this._customerId = customerId;
     this._items = items;

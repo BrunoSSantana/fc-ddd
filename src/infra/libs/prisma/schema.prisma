@@ -19,10 +19,39 @@ model Customer {
   city         String
   active       Boolean
   rewardPoints Int
+  Order        Order[]
+
+  @@map("customers")
 }
 
 model Product {
-  id    String @id
-  name  String
-  price Float
+  id        String      @id
+  name      String
+  price     Float
+  OrderItem OrderItem[]
+
+  @@map("products")
+}
+
+model Order {
+  id         String      @id
+  customerId String      @map("customer_id")
+  customer   Customer    @relation(fields: [customerId], references: [id])
+  items      OrderItem[]
+  total      Float
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id        String  @id
+  productId String  @map("product_id")
+  product   Product @relation(fields: [productId], references: [id])
+  orderId   String  @map("order_id")
+  order     Order   @relation(fields: [orderId], references: [id])
+  quantity  Int
+  name      String
+  price     Float
+
+  @@map("order_items")
 }
