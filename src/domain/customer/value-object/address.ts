@@ -1,3 +1,9 @@
+export type TAddress = {
+  street: string;
+  number: string;
+  zip: string;
+  city: string;
+};
 export type AddressCreateInput = {
   street: string;
   number: string;
