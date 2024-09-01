@@ -5,21 +5,10 @@ export default mergeConfig(
   vitestConfig,
   defineConfig({
     test: {
-      include: ["./src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
-      exclude: [
-        ...configDefaults.exclude,
-        "**/*.e2e.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}",
-        "**/infra/**",
-        "**/mocks/**",
-        "**/index.ts",
-      ],
+      include: ["**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
+      exclude: [...configDefaults.exclude, "**/infra/**"],
       coverage: {
-        exclude: [
-          ...configDefaults.exclude,
-          "**/*.e2e.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}",
-          "**/index.ts",
-          "**/vite*"
-        ],
+        exclude: [...configDefaults.exclude, "**/vite*"],
       },
     },
   }),

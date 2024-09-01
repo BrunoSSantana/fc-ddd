@@ -6,20 +6,10 @@ export default mergeConfig(
   defineConfig({
     test: {
       include: ["**/*.e2e.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
-      exclude: [
-        ...configDefaults.exclude,
-        "**/infra/**",
-        "**/mocks/**",
-        "**/index.ts",
-      ],
+      exclude: [...configDefaults.exclude],
       environmentMatchGlobs: [["src/**", "prisma"]],
       coverage: {
-        exclude: [
-          ...configDefaults.exclude,
-          "**/*.e2e.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}",
-          "**/index.ts",
-          "**/vite*",
-        ],
+        exclude: [...configDefaults.exclude, "**/index.ts", "**/vite*"],
       },
     },
   }),
